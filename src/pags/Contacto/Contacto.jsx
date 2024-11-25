@@ -28,7 +28,7 @@ const validationSchema = Yup.object ({
 });
 
 export default function Contacto() {
-  const { touched, errors, handleSubmit, getFieldProps } = useFormik({
+  const { touched, errors, handleSubmit, getFieldProps, isValid, dirty,  } = useFormik({
     initialValues: {
       nombre: '',
       email: '',
@@ -36,8 +36,14 @@ export default function Contacto() {
     },
     validationSchema,
     onSubmit: (values, { resetForm }) => {
-      console.log("Valores enviados:", values);
-      resetForm();
+      if (!values.nombre || !values.email || !values.mensaje) {
+        alert("Por favor, completa todos los campos antes de enviar.");
+        return; 
+      }
+
+      // console.log("Valores enviados:", values);
+      alert("Su mensaje ha sido enviado con éxito. Gracias por contactarnos.");
+      resetForm(); 
     },
   });
 
@@ -86,7 +92,10 @@ export default function Contacto() {
           </GrupoEtiquetaInput>
 
           <BotonEnviar type="submit" 
-            onClick={() => alert("Su mensaje ha sido enviado con exito. Gracias por contactarnos.")}
+            style={{
+              opacity: !dirty || !isValid ? 0.5 : 1,
+              cursor: !dirty || !isValid ? "not-allowed" : "pointer",
+            }}
           >Enviar</BotonEnviar>
         </Formulario>
       </ContactoContainer>

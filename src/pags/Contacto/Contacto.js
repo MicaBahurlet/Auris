@@ -67,7 +67,7 @@ export const Textarea = styled.textarea`
   border-radius: 10px;
 `;
 
-export const BotonEnviar = styled.div`
+export const BotonEnviar = styled.button`
   padding: 10px 20px;
   font-size: 12px;
   background-color: var( --btn-Background);
